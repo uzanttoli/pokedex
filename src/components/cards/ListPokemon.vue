@@ -10,8 +10,8 @@
       <v-img class="pa-2" width="100%" :src="pokemon.front"></v-img>
     </div>
 
-    <v-card elevation="0" class="rounded-t-xl mt-n12" height="200">
-      <v-card-title>{{ name }}</v-card-title>
+    <v-card elevation="0" class="rounded-t-xl mt-n12" height="130">
+      <v-card-title class="text-capitalize">{{ name }}</v-card-title>
       <v-divider class="mx-4"></v-divider>
       <v-card-text>
         <v-row align="center" class="mx-0">
