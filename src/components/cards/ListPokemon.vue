@@ -16,7 +16,10 @@
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-col class="text-center" v-for="(item, i) in type" :key="i">
-            <v-chip class="ma-2">
+            <v-chip
+              class="ma-2"
+              :color="colors.backgroundTypeColors.get(item.type.name)"
+            >
               {{ item.type.name }}
             </v-chip>
           </v-col>
@@ -30,7 +33,9 @@
 
 <script>
 import axios from "axios";
+import pokemonMixin from "@/views/mixins/pokemon.mixin";
 export default {
+  mixins: [pokemonMixin],
   props: {
     name: {
       type: String,
