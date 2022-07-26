@@ -32,15 +32,15 @@ Desenvolver uma plataforma web para listagem e visualização de pokémons, para
 Faça um clone desse repositório e acesse o diretório.
 
 ```bash
-$ git clone git@github.com:LeeonardoVargas/pokedex.git && cd pokedex
+$ git clone git@github.com:uzanttoli/pokedex.git && cd pokedex
 ```
 
 ```bash
 # Instalando as dependências
-$ yarn
+$ npm install
 
 # Executanto aplicação
-$ yarn start
+$ npm run serve
 
 ```
 
@@ -68,7 +68,3 @@ $ git commit -m "Corrigindo...."
 $ git push origin minha-alteracao
 ```
 Você deve navegar até o seu repositório onde fez o fork e clicar no botão *New pull request* no lado esquerdo da página.
-
-## 📝 Licença
-
-Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
