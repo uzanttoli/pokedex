@@ -26,6 +26,8 @@ Desenvolver uma plataforma web para listagem e visualização de pokémons, para
 
 - [ ] **Selecionar pokémon**: Criar uma página na aplicação com mais detalhes sobre o pokémon escolhido.
 
+- [ ] **Adicionar gerações do Pokemon**: Criar botoes na page '/pokemon/' para listar pokemons da geracao selecionada
+
 
 ## 📥 Instalação e execução
 
