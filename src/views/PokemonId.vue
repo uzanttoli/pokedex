@@ -2,9 +2,16 @@
   <v-sheet :color="colors.backgroundTypeColors.get(pokemon.type)" height="100%">
     <v-container>
       <v-row class="justify-end mt-2">
-        <v-btn fab large to="/"><v-icon>mdi-keyboard-return</v-icon></v-btn>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ attrs, on }">
+            <v-btn v-bind="attrs" v-on="on" large to="/pokemon" icon
+              ><v-icon>mdi-keyboard-return</v-icon></v-btn
+            >
+          </template>
+          <span>Voltar</span>
+        </v-tooltip>
       </v-row>
-      <v-row>
+      <v-row class="justify-space-between">
         <div class="font-weight-black white--black text-h3">
           # {{ pokemon.id }}
           <v-divider></v-divider>
@@ -13,18 +20,24 @@
           </div>
         </div>
         <v-col>
+          <div id="img-pokeball">
+            <v-img width="100%" src="@/assets/pokeball.svg"></v-img>
+          </div>
           <div id="img-pokemon">
             <v-img width="100%" :src="pokemon.pokeImg"></v-img>
           </div>
+          <!--  -->
         </v-col>
-        <!-- <v-col>
-          <v-list>
-            <v-list-item> d </v-list-item>
-          </v-list>
-        </v-col> -->
+        <div style="height: 50vh">
+          <v-divider vertical> </v-divider>
+        </div>
+        <v-col>
+          <v-container class="pa-7">
+            <v-card class="pa-7"></v-card>
+          </v-container>
+        </v-col>
       </v-row>
-      <!-- Slide group -->
-      <v-sheet elevation="8" class="rounded-xl">
+      <v-sheet elevation="5" class="rounded-xl">
         <v-slide-group
           v-model="model"
           class="pa-4"
@@ -55,16 +68,6 @@
                 <div class="text-center text-capitalize">
                   {{ item.name }}
                 </div>
-                <!-- <v-row class="fill-height" align="center" justify="center">
-              <v-scale-transition>
-                <v-icon
-                  v-if="active"
-                  color="white"
-                  size="48"
-                  v-text="'mdi-close-circle-outline'"
-                ></v-icon>
-              </v-scale-transition>
-            </v-row> -->
               </v-skeleton-loader>
             </v-card>
           </v-slide-item>
@@ -93,6 +96,7 @@ export default {
       pokeImg: "",
       type: "",
     },
+    pkImage: [],
   }),
   computed: {
     pokemonfilter() {
@@ -106,7 +110,7 @@ export default {
     async loadPokemons() {
       this.loading = true;
       var res = await axios.get(
-        "https://pokeapi.co/api/v2/pokemon?limit=10&offset=0"
+        "https://pokeapi.co/api/v2/pokemon?limit=151&offset=0"
       );
       let result = res.data.results;
       for (let i = 0; i < result.length; i++) {
@@ -128,6 +132,10 @@ export default {
           this.pokemon.type = res.data.types[0].type.name;
           this.pokemon.pokeImg =
             res.data.sprites.other["official-artwork"].front_default;
+          this.pkImage = {
+            img: res.data.sprites.other["official-artwork"].front_default,
+            imgBack: res.data.sprites.back_default,
+          };
         })
         .catch((err) => {
           console.log(err);
@@ -148,12 +156,18 @@ export default {
 
 <style scoped>
 #img-pokemon {
-  margin: 15% 10% 8% -10%;
+  margin: 30% 10% 10% -10%;
   width: 350px;
   height: 350px;
   display: block;
 }
-
+#img-pokeball {
+  margin-top: 4%;
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  opacity: 0.4;
+}
 #sheet-group-sliders {
   background-image: linear-gradient(
     to bottom,

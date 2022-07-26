@@ -30,16 +30,6 @@
             <div class="text-center text-capitalize">
               {{ item.name }}
             </div>
-            <!-- <v-row class="fill-height" align="center" justify="center">
-              <v-scale-transition>
-                <v-icon
-                  v-if="active"
-                  color="white"
-                  size="48"
-                  v-text="'mdi-close-circle-outline'"
-                ></v-icon>
-              </v-scale-transition>
-            </v-row> -->
           </v-skeleton-loader>
         </v-card>
       </v-slide-item>
