@@ -1,5 +1,3 @@
-
-
 // BUTTONS COLORS
 export const buttonColors = new Map();
 buttonColors.set("primary", "#EA5D60");
@@ -65,7 +63,16 @@ elementTypeColors.set("rock", "#BAAB82");
 elementTypeColors.set("steel", "#417D9A");
 elementTypeColors.set("water", "#4A90DA");
 
+export const statTypeColors = new Map();
+statTypeColors.set("hp", "#B22222");
+statTypeColors.set("attack", "#FF8C00");
+statTypeColors.set("defense", "#1E90FF");
+statTypeColors.set("special-attack", "#FFA500");
+statTypeColors.set("special-defense", "#87CEFA");
+statTypeColors.set("speed", "#708090");
+
 export default {
+  statTypeColors,
   elementTypeColors,
   backgroundTypeColors,
   buttonColors,

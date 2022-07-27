@@ -24,6 +24,7 @@
                 text-color="white"
                 :color="colors.backgroundTypeColors.get(item.type.name)"
               >
+              <!-- <v-img :src=`../assets/${item.}.svg`></v-img> -->
                 {{ item.type.name }}
               </v-chip>
             </div>
