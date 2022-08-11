@@ -61,14 +61,25 @@
           <div
             id="base-status"
             class="pa-2 ma-2 text-start"
-            style="position: absolute; width: 45%; height: 50vh"
+            style="position: absolute; width: 45%; height: 60vh"
           >
-            <v-col cols="4">
-              <v-card>
-                <v-card-title>Habilidade 1</v-card-title>
-              </v-card>
-            </v-col>
-            <div style="margin-top: 320px">
+            <v-row align="center" justify="center">
+              <v-col v-for="(item, i) in pokemonAbility" :key="i">
+                <v-card>
+                  <v-card-title
+                    >Habilidade: {{ item.ability | capitalize }}</v-card-title
+                  >
+                  <v-card class="overflow-auto" height="300">
+                    <v-divider></v-divider>
+                    <div class="pa-2">Effect: {{ item.effect }}</div>
+                    <div class="pa-2">
+                      Short Effect: {{ item.short_effect }}
+                    </div>
+                  </v-card>
+                </v-card>
+              </v-col>
+            </v-row>
+            <div style="margin-top: 10px">
               <v-row v-for="(item, i) in baseStatus" :key="i">
                 <v-col cols="3" class="font-weight-bold text-capitalize pa-0">
                   {{ item.stat.name }}:
@@ -93,7 +104,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <div style="position: fixed; width: 100%; bottom: 2px;">
+    <div style="position: fixed; width: 100%; bottom: 2px">
       <v-card class="pa-1 rounded-t-xl mt-3">
         <v-sheet
           elevation="5"
@@ -170,18 +181,21 @@ export default {
       pokeImgBack: "",
       type: "",
     },
+    pokemonAbility: [],
     baseStatus: [],
   }),
   computed: {
-    pokemonfilter() {
-      let filtered = this.pokemons.filter((element) => {
-        return element.name != this.$route.params.name;
-      });
-      return filtered;
+    routerPage() {
+      return this.$route.params.name;
     },
     limited() {
       let limit = Math.random() * 1154;
       return limit;
+    },
+  },
+  filters: {
+    capitalize(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
     },
   },
   methods: {
@@ -205,10 +219,26 @@ export default {
     },
     loadPokemonName() {
       axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${this.$route.params.name}`)
+        .get(`https://pokeapi.co/api/v2/pokemon/${this.routerPage}`)
         .then((res) => {
           this.baseStatus = res.data.stats;
-
+          let abilities = res.data.abilities;
+          this.pokemonAbility = [];
+          for (let i = 0; i < abilities.length; i++) {
+            this.pokemonAbility.push({
+              ability: abilities[i].ability.name,
+              is_hidden: abilities[i].is_hidden,
+            });
+            axios.get(abilities[i].ability.url).then((res) => {
+              let efeito = res.data.effect_entries;
+              for (let i = 0; i < efeito.length; i++) {
+                if (efeito[i].language.name == "en") {
+                  this.pokemonAbility[i].effect = efeito[i].effect;
+                  this.pokemonAbility[i].short_effect = efeito[i].short_effect;
+                }
+              }
+            });
+          }
           this.pokemon.name = res.data.name;
           this.pokemon.id = res.data.id;
           this.pokemon.type = res.data.types[0].type.name;
@@ -223,7 +253,7 @@ export default {
     },
   },
   watch: {
-    pokemonfilter() {
+    routerPage() {
       this.loadPokemonName();
     },
   },
