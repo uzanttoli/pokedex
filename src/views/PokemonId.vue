@@ -63,23 +63,21 @@
             class="pa-2 ma-2 text-start"
             style="position: absolute; width: 45%; height: 60vh"
           >
-            <v-row align="center" justify="center">
-              <v-col v-for="(item, i) in pokemonAbility" :key="i">
-                <v-card>
-                  <v-card-title
-                    >Habilidade: {{ item.ability | capitalize }}</v-card-title
-                  >
-                  <v-card class="overflow-auto" height="300">
-                    <v-divider></v-divider>
-                    <div class="pa-2">Effect: {{ item.effect }}</div>
-                    <div class="pa-2">
-                      Short Effect: {{ item.short_effect }}
-                    </div>
-                  </v-card>
-                </v-card>
-              </v-col>
-            </v-row>
-            <div style="margin-top: 10px">
+            <!-- <v-card class="pa-5">
+              <template v-for="(item, i) in pokemonAbility">
+                <CardExpanded
+                  :habilidade="item.ability | capitalize"
+                  :key="i"
+                  :descricao="
+                    item.effect
+                      ? item.effect
+                      : 'No effect found for selected character'
+                  "
+                  :color="'background:' + colors.backgroundTypeColors.get(pokemon.type)"
+                />
+              </template>
+            </v-card> -->
+            <div style="margin-top: 25px">
               <v-row v-for="(item, i) in baseStatus" :key="i">
                 <v-col cols="3" class="font-weight-bold text-capitalize pa-0">
                   {{ item.stat.name }}:
@@ -161,10 +159,14 @@
 </template>
 
 <script>
+// import CardExpanded from "@/components/cards/CardExpanded.component.vue";
 import pokemonMixin from "@/views/mixins/pokemon.mixin";
 import axios from "axios";
 export default {
   mixins: [pokemonMixin],
+  components: {
+    // CardExpanded,
+  },
   data: () => ({
     model: null,
     isRotate: false,
