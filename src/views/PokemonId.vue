@@ -22,7 +22,7 @@
             {{ pokemon.name }}
           </div>
         </div>
-        <v-col>
+        <v-col cols="6">
           <div id="img-pokeball">
             <v-img width="100%" src="@/assets/pokeball.svg"></v-img>
           </div>
@@ -57,27 +57,13 @@
         <div style="height: 65vh">
           <v-divider vertical> </v-divider>
         </div>
-        <v-col class="">
-          <div
-            id="base-status"
-            class="pa-2 ma-2 text-start"
-            style="position: absolute; width: 45%; height: 60vh"
-          >
-            <!-- <v-card class="pa-5">
-              <template v-for="(item, i) in pokemonAbility">
-                <CardExpanded
-                  :habilidade="item.ability | capitalize"
-                  :key="i"
-                  :descricao="
-                    item.effect
-                      ? item.effect
-                      : 'No effect found for selected character'
-                  "
-                  :color="'background:' + colors.backgroundTypeColors.get(pokemon.type)"
-                />
-              </template>
-            </v-card> -->
-            <div style="margin-top: 25px">
+        <v-row align="center">
+          <v-col class="" cols="6">
+            <div
+              id="base-status"
+              class="pa-2 ma-2 text-start px-6 mt-n16"
+              style="position: absolute; width: 45%; height: 60vh"
+            >
               <v-row v-for="(item, i) in baseStatus" :key="i">
                 <v-col cols="3" class="font-weight-bold text-capitalize pa-0">
                   {{ item.stat.name }}:
@@ -98,8 +84,8 @@
                 </v-col>
               </v-row>
             </div>
-          </div>
-        </v-col>
+          </v-col>
+        </v-row>
       </v-row>
     </v-container>
     <div style="position: fixed; width: 100%; bottom: 2px">
@@ -230,15 +216,7 @@ export default {
             this.pokemonAbility.push({
               ability: abilities[i].ability.name,
               is_hidden: abilities[i].is_hidden,
-            });
-            axios.get(abilities[i].ability.url).then((res) => {
-              let efeito = res.data.effect_entries;
-              for (let i = 0; i < efeito.length; i++) {
-                if (efeito[i].language.name == "en") {
-                  this.pokemonAbility[i].effect = efeito[i].effect;
-                  this.pokemonAbility[i].short_effect = efeito[i].short_effect;
-                }
-              }
+              url: abilities[i].ability.url,
             });
           }
           this.pokemon.name = res.data.name;
@@ -253,6 +231,14 @@ export default {
           console.log(err);
         });
     },
+    // loadDescricaoHabilidade() {
+    //   let habilidade = this.pokemonAbility;
+    //   for (let i = 0; i < habilidade.length; i++) {
+    //     axios.get(habilidade[i].url).then((res) => {
+    //       console.log(res.data);
+    //     });
+    //   }
+    // },
   },
   watch: {
     routerPage() {

@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-expansion-panels popout class="rounded-xl-0">
+    <v-expansion-panels popout class="rounded-xl-0" >
       <v-expansion-panel :style="color">
         <v-expansion-panel-header>
           <p class="white--text">{{ habilidade }}</p>

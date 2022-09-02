@@ -39,23 +39,6 @@
           </router-link>
         </v-col>
       </v-row>
-      <v-row class="justify-center pa-3" v-if="filteredItems.length > 0">
-        <v-tooltip right color="#30a0cc">
-          <template v-slot:activator="{ attrs, on }">
-            <v-btn
-              v-bind="attrs"
-              v-on="on"
-              fab
-              dark
-              color="#30a0cc"
-              @click="pagination += 10"
-            >
-              <v-icon>fa-solid fa-plus</v-icon>
-            </v-btn>
-          </template>
-          <span>Carregar mais</span>
-        </v-tooltip>
-      </v-row>
     </v-card>
     <v-overlay :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
